@@ -61,7 +61,18 @@
 		{#each choices.sort((a, b) => b.votes - a.votes) as choice}
 			<li>
 				{choice.name} - Votes: {choice.votes}
-				<button on:click={() => vote(choice)}>Vote</button>
+				<button
+					on:click={async () => {
+						await fetch('/api/votes', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({ name: choice.name })
+						});
+						await fetchChoices(); // Refresh choices
+					}}>Vote</button
+				>
 			</li>
 		{/each}
 	</ul>
