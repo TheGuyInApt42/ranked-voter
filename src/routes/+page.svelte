@@ -26,33 +26,37 @@
 	}
 </script>
 
-<h1>Vote for Your Choice</h1>
+<h1>Vote for Outing</h1>
 
-<form on:submit|preventDefault={addChoice}>
-	<input type="text" bind:value={newChoice} placeholder="Enter a new choice" />
-	<button type="submit">Add Choice</button>
-</form>
+<section>
+	<form on:submit|preventDefault={addChoice}>
+		<input type="text" bind:value={newChoice} placeholder="Enter a new choice" />
+		<button type="submit">Add Choice</button>
+	</form>
+</section>
 
-<h2>Choices</h2>
-<ul>
-	{#each choices.sort((a, b) => b.votes - a.votes) as choice}
-		<li>
-			{choice.name} - Votes: {choice.votes}
-			<button
-				on:click={async () => {
-					await fetch('/api/votes', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify({ name: choice.name })
-					});
-					await fetchChoices(); // Refresh choices
-				}}>Vote</button
-			>
-		</li>
-	{/each}
-</ul>
+<section>
+	<h2>Choices</h2>
+	<ul>
+		{#each choices.sort((a, b) => b.votes - a.votes) as choice}
+			<li>
+				{choice.name} - Votes: {choice.votes}
+				<button
+					on:click={async () => {
+						await fetch('/api/votes', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({ name: choice.name })
+						});
+						await fetchChoices(); // Refresh choices
+					}}>Vote</button
+				>
+			</li>
+		{/each}
+	</ul>
+</section>
 
 <style>
 	section {
@@ -60,26 +64,14 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		flex: 0.6;
+		flex: 0.2;
 	}
 
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+	li {
+		color: var(--color-text1);
+		list-style-type: none;
+		display: flex;
+		gap: 1.5rem;
+		justify-content: space-between;
 	}
 </style>

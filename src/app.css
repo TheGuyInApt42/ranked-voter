@@ -14,20 +14,27 @@
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);
 	color: var(--color-text);
+
+	--color-primary: #1e1e2f;
+	--color-secondary: #3e3e54;
+	--color-accent: #ff6f61;
+	--color-text1: #e0e0e0;
+	--color-heading: #ffffff;
+	--color-button-hover: #ff4f3d;
 }
 
 body {
 	min-height: 100vh;
 	margin: 0;
 	background-attachment: fixed;
-	background-color: var(--color-bg-1);
-	background-size: 100vw 100vh;
+	background-color: var(--color-primary);
+	/* background-size: 100vw 100vh;
 	background-image: radial-gradient(
 			50% 50% at 50% 50%,
 			rgba(255, 255, 255, 0.75) 0%,
 			rgba(255, 255, 255, 0) 100%
 		),
-		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
+		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%); */
 }
 
 h1,
@@ -38,6 +45,7 @@ p {
 
 p {
 	line-height: 1.5;
+	color: var(--color-text1);
 }
 
 a {
@@ -50,18 +58,20 @@ a:hover {
 }
 
 h1 {
-	font-size: 2rem;
+	font-size: 3rem;
 	text-align: center;
+	color: var(--color-heading);
 }
 
 h2 {
-	font-size: 1rem;
+	font-size: 2rem;
+	color: var(--color-heading);
 }
 
 pre {
 	font-size: 16px;
 	font-family: var(--font-mono);
-	background-color: rgba(255, 255, 255, 0.45);
+
 	border-radius: 3px;
 	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
 	padding: 0.5em;
@@ -84,8 +94,14 @@ button {
 	font-family: inherit;
 }
 
+button {
+	background-color: var(--color-accent);
+}
 button:focus:not(:focus-visible) {
 	outline: none;
+}
+button:hover {
+	background-color: var(--color-button-hover);
 }
 
 @media (min-width: 720px) {
