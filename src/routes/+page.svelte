@@ -24,6 +24,26 @@
 			await fetchChoices(); // Refresh choices
 		}
 	}
+
+	function hasVoted() {
+		return localStorage.getItem('hasVoted') === 'true';
+	}
+
+	async function vote(choice) {
+		if (!hasVoted()) {
+			await fetch('/api/votes', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ name: choice.name })
+			});
+			localStorage.setItem('hasVoted', 'true'); // Mark as voted
+			await fetchChoices(); // Refresh choices
+		} else {
+			alert('You have already voted!');
+		}
+	}
 </script>
 
 <h1>Vote for Outing</h1>
@@ -41,18 +61,7 @@
 		{#each choices.sort((a, b) => b.votes - a.votes) as choice}
 			<li>
 				{choice.name} - Votes: {choice.votes}
-				<button
-					on:click={async () => {
-						await fetch('/api/votes', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({ name: choice.name })
-						});
-						await fetchChoices(); // Refresh choices
-					}}>Vote</button
-				>
+				<button on:click={() => vote(choice)}>Vote</button>
 			</li>
 		{/each}
 	</ul>
